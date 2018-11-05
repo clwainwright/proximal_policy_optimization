@@ -1,0 +1,27 @@
+{
+    "env": "PongDeterministic-v4",
+    "saver_args": {
+        "keep_checkpoint_every_n_hours": 1.0,
+        "max_to_keep": 2
+    },
+    "trainer_args": {
+        "total_steps": 20e6,
+        "steps_per_env": 128,
+        "batch_size": 128,
+        "epochs": 4,
+        "report_every": 500,
+        "save_every": 10000
+    },
+    "params": {
+        "gamma": 0.99,
+        "lmda": 0.95,
+        "learning_rate": 1e-4,
+        "entropy_reg": 0.0,
+        "num_env": 4,
+        "reward_clip": 1.0,
+        "vf_coef": 1.0,
+        "value_reweighting": false,
+        "delta_target_policy": "absolute",
+        "peaked_policy_loss": false
+    }
+}
