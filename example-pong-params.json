@@ -20,7 +20,7 @@
         "num_env": 4,
         "reward_clip": 1.0,
         "vf_coef": 1.0,
-        "value_reweighting": false,
+        "value_grad_rescaling": false,
         "delta_target_policy": "absolute",
         "peaked_policy_loss": false
     }

@@ -111,7 +111,7 @@ class PPO(object):
     max_gradient_norm = 5.0
     eps_clip = 0.2  # PPO clipping for both value and policy losses
     reward_clip = 0.0
-    value_reweighting = 'smooth'  # one of [False, 'smooth', 'per_batch', 'per_state']
+    value_grad_rescaling = 'smooth'  # one of [False, 'smooth', 'per_batch', 'per_state']
     delta_target_policy = 'absolute'  # or 'logit'
     peaked_policy_loss = False
 
@@ -187,15 +187,15 @@ class PPO(object):
             avg_pseudo_entropy = tf.reduce_mean(pseudo_entropy)
             smoothed_pseudo_entropy = tf.get_variable(
                 'smoothed_pseudo_entropy', initializer=tf.constant(1.0))
-            if self.value_reweighting == 'per_state':
+            if self.value_grad_rescaling == 'per_state':
                 value_loss *= pseudo_entropy
-            elif self.value_reweighting == 'per_batch':
+            elif self.value_grad_rescaling == 'per_batch':
                 value_loss *= avg_pseudo_entropy
-            elif self.value_reweighting == 'smooth':
+            elif self.value_grad_rescaling == 'smooth':
                 value_loss *= tf.stop_gradient(smoothed_pseudo_entropy)
-            elif self.value_reweighting:
+            elif self.value_grad_rescaling:
                 raise ValueError("Unrecognized value reweighting type: '%s'" % (
-                    self.value_reweighting,))
+                    self.value_grad_rescaling,))
             value_loss = 0.5 * tf.reduce_mean(value_loss)
             # Add another term to the loss which is just used to adjust
             # the smoothed pseudo-entropy.
