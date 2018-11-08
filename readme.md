@@ -18,6 +18,12 @@ With the example parameters, the agent should be able to win a perfect game of P
     tensorboard --logdir=./logdata
 
 
+## Example outputs
+
+![a game of pong](./pong.gif)
+![a game of space invaders](./space_invaders.gif)
+
+
 ## Experimental modifications
 
 One of the problems with policy gradient algorithms is that they are very sensitive to step size, and they are prone to catastrophic performance drops. Indeed, much of the original motivation for the PPO algorithm was to make the policy update robust across a larger range of step sizes. However, in my experiments with only modestly large step sizes I would frequently see performance drops from optimal to worse-than-random policies. This was easiest to reproduce in Pong, in which it's fairly straightforward to train an optimal agent. See the *[policy collapse notebook](./policy_collapse_analysis.ipynb)* for a detailed analysis of one such drop and its proximal causes.
